@@ -49,8 +49,19 @@ video.addEventListener("play", () => {
       //const drawBox = new faceapi.draw.DrawBox(box, {
       //  label: Math.round(detection.age) + " year old " + detection.gender,
       //});
-      drawBox.draw(canvas);
+      //drawBox.draw(canvas);
     });
+
+
+      // 🔥 send detection results to the extension
+      console.log("PAGE → posting FACE_DETECTIONS, count:", resizedWindow.length);
+
+      window.postMessage({
+        type: "FACE_DETECTIONS",
+        payload: resizedWindow
+      });
+
+
 
     console.log(detection);
   }, 100);
