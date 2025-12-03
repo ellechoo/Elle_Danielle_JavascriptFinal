@@ -1,13 +1,38 @@
-body{
+body {
     margin: 0;
     padding: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;   /* align content from the top */
+
+    background: #ffffff;
 }
 
-canvas{
+/* Container holding video + graph */
+.main-wrapper {
+    display: flex;
+    flex-direction: column;  /* stack vertically */
+    align-items: center;
+    gap: 20px;               /* space between video + graph */
+}
+
+video {
+    display: block;
+}
+
+/* FaceAPI overlay canvas */
+canvas.face-overlay {
     position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+options: {
+    responsive: false,   // <--- ✨ ADD THIS
+    animation: false,
+    scales: { y: { min: 0, max: 1 } }
 }

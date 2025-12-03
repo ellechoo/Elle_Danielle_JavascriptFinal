@@ -4,11 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- Face API + your script -->
     <script defer src="face-api.min.js"></script>
     <script defer src="script.js"></script>
+
+    <!-- Chart.js for the graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <video id="video" width="640" height="480" autoplay muted></video>
+
+    <!-- WEBCAM FEED -->
+
+    <!-- EMOTION GRAPH -->
+
+    <body>
+        <div class="main-wrapper">
+            <video id="video" width="640" height="480" autoplay muted></video>
+
+            <div style="width: 640px;">
+                <canvas id="emotionChart"></canvas>
+            </div>
+        </div>
+    </body>
+
+
+
+    <!-- LISTENER FOR EXTENSION DATA + GRAPH LOGIC -->
+    <script>
+        // Set up a Chart.js line graph
+        const ctx = document.getElementById("emotionChart").getContext("2d");
+
+        const emotionChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: [], // timestamps
+                datasets: [
+                    {
+                        label: "Happy",
+                        data: [],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Neutral",
+                        data: [],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Sad",
+                        data: [],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Angry",
+                        data: [],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Surprised",
+                        data: [],
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                animation: false,
+                scales: {
+                    y: { min: 0, max: 1 }
+                }
+            }
+        });
+
+        // Receive extension data
+        
+        window.addEventListener("message", (event) => {
+            if (event.data.type !== "FACE_DETECTIONS") return;
+
+            const faces = event.data.payload;  // <-- FIXED
+
+            if (!faces || !faces.length) return;
+
+            const exp = faces[0].expressions; 
+            const t = new Date().toLocaleTimeString();
+
+            // push data into the chart
+            emotionChart.data.labels.push(t);
+            emotionChart.data.datasets[0].data.push(exp.happy);
+            emotionChart.data.datasets[1].data.push(exp.neutral);
+            emotionChart.data.datasets[2].data.push(exp.sad);
+            emotionChart.data.datasets[3].data.push(exp.angry);
+            emotionChart.data.datasets[4].data.push(exp.surprised);
+
+            // limit graph to last 30 points
+            const maxPoints = 30;
+            emotionChart.data.labels = emotionChart.data.labels.slice(-maxPoints);
+            emotionChart.data.datasets.forEach(ds => {
+                ds.data = ds.data.slice(-maxPoints);
+            });
+
+            emotionChart.update();
+        });
+
+    </script>
+
 </body>
 </html>

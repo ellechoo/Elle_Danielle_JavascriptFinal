@@ -24,7 +24,10 @@ function webCam() {
 
 video.addEventListener("play", () => {
   const canvas = faceapi.createCanvasFromMedia(video);
+  canvas.classList.add("face-overlay");
   document.body.append(canvas);
+
+
 
   faceapi.matchDimensions(canvas, { height: video.height, width: video.width });
 
