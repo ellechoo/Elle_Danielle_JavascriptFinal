@@ -66,7 +66,18 @@
                         label: "Surprised",
                         data: [],
                         borderWidth: 2
+                    },
+                    {
+                        label: "Disgusted",
+                        data: [],
+                        borderWidth: 2
+                    },
+                    {
+                        label: "Fearful",
+                        data: [],
+                        borderWidth: 2
                     }
+
                 ]
             },
             options: {
@@ -97,6 +108,9 @@
             emotionChart.data.datasets[2].data.push(exp.sad);
             emotionChart.data.datasets[3].data.push(exp.angry);
             emotionChart.data.datasets[4].data.push(exp.surprised);
+            emotionChart.data.datasets[5].data.push(exp.disgusted);
+            emotionChart.data.datasets[6].data.push(exp.fearful);
+
 
             // limit graph to last 30 points
             const maxPoints = 30;
