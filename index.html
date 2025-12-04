@@ -14,19 +14,23 @@
 
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-    <!-- WEBCAM FEED -->
 
-    <!-- EMOTION GRAPH -->
+    <!-- WEBCAM FEED and Emotion Graph -->
 
     <body>
         <div class="main-wrapper">
+
             <video id="video" width="640" height="480" autoplay muted></video>
 
             <div style="width: 640px;">
                 <canvas id="emotionChart"></canvas>
             </div>
+
+            <div style="width: 640px; margin-top: 40px;">
+                <canvas id="emotionSummaryChart"></canvas>
+            </div>
+
         </div>
     </body>
 
@@ -89,6 +93,47 @@
             }
         });
 
+
+
+
+
+        // --- 60-second summary chart data ---
+        let emotionTotals = {
+            happy: 0,
+            neutral: 0,
+            sad: 0,
+            angry: 0,
+            surprised: 0,
+            disgusted: 0,
+            fearful: 0
+        };
+
+        // --- create the 60-sec summary chart ---
+        const ctx2 = document.getElementById("emotionSummaryChart").getContext("2d");
+
+        const emotionSummaryChart = new Chart(ctx2, {
+            type: "bar",
+            data: {
+                labels: ["Happy", "Neutral", "Sad", "Angry", "Surprised", "Disgusted", "Fearful"],
+                datasets: [{
+                    label: "Emotion Totals (every 60s)",
+                    data: [0, 0, 0, 0, 0, 0, 0],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                animation: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+
+
+
+
         // Receive extension data
         
         window.addEventListener("message", (event) => {
@@ -112,6 +157,18 @@
             emotionChart.data.datasets[6].data.push(exp.fearful);
 
 
+
+            // add to 60-second totals
+            emotionTotals.happy     += exp.happy;
+            emotionTotals.neutral   += exp.neutral;
+            emotionTotals.sad       += exp.sad;
+            emotionTotals.angry     += exp.angry;
+            emotionTotals.surprised += exp.surprised;
+            emotionTotals.disgusted += exp.disgusted;
+            emotionTotals.fearful   += exp.fearful;
+
+
+
             // limit graph to last 30 points
             const maxPoints = 30;
             emotionChart.data.labels = emotionChart.data.labels.slice(-maxPoints);
@@ -122,7 +179,39 @@
             emotionChart.update();
         });
 
+
+
+        // Update the 60-second summary chart every minute
+        setInterval(() => {
+
+        // update bar chart
+        emotionSummaryChart.data.datasets[0].data = [
+            emotionTotals.happy,
+            emotionTotals.neutral,
+            emotionTotals.sad,
+            emotionTotals.angry,
+            emotionTotals.surprised,
+            emotionTotals.disgusted,
+            emotionTotals.fearful
+        ];
+
+        emotionSummaryChart.update();
+
+        // reset totals for next 60 sec
+        emotionTotals = {
+            happy: 0,
+            neutral: 0,
+            sad: 0,
+            angry: 0,
+            surprised: 0,
+            disgusted: 0,
+            fearful: 0
+        };
+
+    }, 60000);
+
+
     </script>
 
-</body>
+
 </html>
