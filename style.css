@@ -29,10 +29,3 @@ canvas.face-overlay {
     left: 50%;
     transform: translateX(-50%);
 }
-
-
-options: {
-    responsive: false,   // <--- ✨ ADD THIS
-    animation: false,
-    scales: { y: { min: 0, max: 1 } }
-}
