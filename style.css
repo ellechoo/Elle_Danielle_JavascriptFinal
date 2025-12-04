@@ -107,3 +107,48 @@ canvas.face-overlay {
 .right-nav a:hover {
     background: rgba(0, 0, 0, 0.1);
 }
+
+
+
+/* Collapsible Instructions Box */
+.instructions-box {
+    position: fixed;
+    top: 90px; /* below the header */
+    left: 15px;
+    z-index: 9998;
+
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 14px 14px;
+    width: 240px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    font-family: sans-serif;
+    margin-top: 5px;
+}
+
+.instructions-toggle {
+    width: 100%;
+    background: #a485f3;
+    color: white;
+    border: none;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.instructions-toggle:hover {
+    background: #c8b2ff;
+}
+
+.instructions-content {
+    display: none; /* start collapsed */
+    margin-top: 10px;
+    font-size: 13px;
+    color: #333;
+}
+
+.instructions-content ul {
+    padding-left: 20px;
+}

@@ -27,6 +27,26 @@
 
 
 
+        <div class="instructions-box">
+            <button class="instructions-toggle">Instructions ▼</button>
+
+            <div class="instructions-content">
+                <p><strong>How to Use:</strong></p>
+                <ul>
+                    <p>As you surf the web, interFace detects your facial expressions in real time, revealing how your mood shifts across the digital world.</p>
+                    <li>Download and turn on the InterFACE chrome extension.</li>
+                    <li>Allow webcam access for this website.</li>
+                    <li>Just keep this tab open and use the web like you normally would.</li>
+                    <li>To check your facial expressions while on other tabs, click on the InterFACE chrome extension for a live popup.</li>
+                    <li>Scroll down on this page to see a summary of your emotions over a period of time.</li>
+                    <li>Note: Good lighting is recommended for accurate results.</li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
         <div class="right-nav">
             <a href="#video">Video Feed</a>
             <a href="#emotionChart">Live Data</a>
@@ -48,6 +68,24 @@
             </div>
 
         </div>
+
+
+        <!-- INSTRUCTIONS DROPDOWN -->
+        <script>
+        document.querySelector(".instructions-toggle").addEventListener("click", () => {
+            const content = document.querySelector(".instructions-content");
+            const button = document.querySelector(".instructions-toggle");
+
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                button.textContent = "Instructions ▼";
+            } else {
+                content.style.display = "block";
+                button.textContent = "Instructions ▲";
+            }
+        });
+        </script>
+
     </body>
 
 
