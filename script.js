@@ -52,7 +52,7 @@ video.addEventListener("play", () => {
     });
 
 
-      // 🔥 send detection results to the extension
+      // send detection results to the extension
       console.log("PAGE → posting FACE_DETECTIONS, count:", resizedWindow.length);
 
       window.postMessage({
