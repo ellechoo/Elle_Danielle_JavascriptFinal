@@ -16,11 +16,12 @@ body {
     display: flex;
     flex-direction: column;  /* stack vertically */
     align-items: center;
-    gap: 20px;               /* space between video + graph */
+    gap: 40px;
 }
 
 video {
     display: block;
+    padding: 40px;
 }
 
 /* FaceAPI overlay canvas */
@@ -28,4 +29,81 @@ canvas.face-overlay {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    padding: 40px;
+}
+
+
+
+/* Page Header */
+/* Top-left header with icon + title */
+.page-header {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: rgba(255, 255, 255, 0.85);
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    font-family: sans-serif;
+    z-index: 9999; /* stays above video + canvas */
+}
+
+.header-icon {
+    width: 60px;
+    height: 60px;
+}
+
+.header-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #7944ff;
+}
+
+
+#emotionSummaryChart {
+    margin-bottom: 60px;
+}
+
+
+
+/* Right-side vertical navigation */
+.right-nav {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    background: rgba(255, 255, 255, 0.85);
+    padding: 10px 14px;
+    border-radius: 12px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(4px);
+
+    z-index: 9999; /* stay above video & overlays */
+    font-family: sans-serif;
+}
+
+.right-nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+
+    padding: 6px 8px;
+    border-radius: 6px;
+
+    transition: background 0.2s ease;
+}
+
+.right-nav a:hover {
+    background: rgba(0, 0, 0, 0.1);
 }
