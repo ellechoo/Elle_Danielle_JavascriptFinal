@@ -1,11 +1,11 @@
 const video = document.getElementById("video");
 
 Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
-  faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-  faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
-  faceapi.nets.faceExpressionNet.loadFromUri("/models"),
-  faceapi.nets.ageGenderNet.loadFromUri("/models"),
+  faceapi.nets.tinyFaceDetector.loadFromUri("./models"),
+  faceapi.nets.faceLandmark68Net.loadFromUri("./models"),
+  faceapi.nets.faceRecognitionNet.loadFromUri("./models"),
+  faceapi.nets.faceExpressionNet.loadFromUri("./models"),
+  faceapi.nets.ageGenderNet.loadFromUri("./models"),
 ]).then(webCam);
 
 function webCam() {
@@ -49,10 +49,6 @@ video.addEventListener("play", () => {
 
     resizedWindow.forEach((detection) => {
       const box = detection.detection.box;
-      //const drawBox = new faceapi.draw.DrawBox(box, {
-      //  label: Math.round(detection.age) + " year old " + detection.gender,
-      //});
-      //drawBox.draw(canvas);
     });
 
 
